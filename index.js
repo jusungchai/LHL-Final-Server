@@ -1,13 +1,16 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const { pool } = require('./config')
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { pool } = require('./config');
 
-const app = express()
+const app = express();
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+
+const stripe = require("stripe")(process.env.STRIPE_KEY);
+const uuid = require("uuid/v4");
 
 const getUsers = (request, response) => {
   pool.query('SELECT * FROM users', (error, results) => {
@@ -28,6 +31,56 @@ const addUser = (request, response) => {
     response.status(201).json({ status: 'success', message: 'User added.' })
   })
 }
+
+app.get("/", (req, res) => {
+  res.send("Add your Stripe Secret Key to the .require('stripe') statement!");
+});
+
+app.post("/checkout", async (req, res) => {
+  console.log("Request:", req.body);
+
+  let error;
+  let status;
+  try {
+    const { values, token } = req.body;
+
+    const customer = await stripe.customers.create({
+      email: token.email,
+      source: token.id
+    });
+
+    const idempotency_key = uuid();
+    const charge = await stripe.charges.create(
+      {
+        amount: parseFloat(values.requiredTime * values.payRate * 100),
+        currency: "cad",
+        customer: customer.id,
+        receipt_email: token.email,
+        description: `Purchased the ${values.serviceType}`,
+        shipping: {
+          name: token.card.name,
+          address: {
+            line1: token.card.address_line1,
+            line2: token.card.address_line2,
+            city: token.card.address_city,
+            country: token.card.address_country,
+            postal_code: token.card.address_zip
+          }
+        }
+      },
+      {
+        idempotency_key
+      }
+    );
+    console.log("Charge:", { charge });
+    status = "success";
+  } catch (error) {
+    console.error("Error:", error);
+    status = "failure";
+  }
+
+  res.json({ error, status });
+});
 
 app
   .route('/users')
