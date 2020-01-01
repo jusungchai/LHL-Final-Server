@@ -11,7 +11,9 @@ router.get('/', (req, res) => {
 
 router.post('/login', (req, res) => {
   console.log(req.body);
-  pool.query(`SELECT * FROM users WHERE email='${req.body.email}'`, (error, results) => {
+  const queryString = `SELECT * FROM users WHERE email = $1`;
+  const values = [req.body.email];
+  pool.query(queryString, values, (error, results) => {
     if (error) {
       throw error
     }
@@ -47,9 +49,10 @@ router.post('/signup', (req, res) => {
   .then((hash) => {
     const queryString = `
       INSERT INTO users(name, password, email, phone, customer_id)
-      VALUES ('${req.body.name}', '${hash}', '${req.body.email}', '${req.body.phone}', ${req.body.customer_id})
+      VALUES ($1, $2, $3, $4, $5)
     `;
-    pool.query(queryString, (error, results) => {
+    const values = [req.body.name, hash, req.body.email, req.body.phone, req.body.customer_id];
+    pool.query(queryString, values, (error, results) => {
       if (error) {
         throw error
       }
