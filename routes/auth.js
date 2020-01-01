@@ -21,7 +21,7 @@ router.post('/login', (req, res) => {
       bcrypt.compare(req.body.password, results.rows[0].password)
       .then((result) => {
         if (result) {
-          req.session.user_id = results.rows[0].id;
+          req.session.userId = results.rows[0].id;
           res.json({
             result,
             message: "logged in"
@@ -35,6 +35,7 @@ router.post('/login', (req, res) => {
       })
     } else {
       res.json({
+        result: false,
         message: "user not found"
       });
     }
@@ -48,19 +49,27 @@ router.post('/signup', (req, res) => {
   bcrypt.hash(req.body.password, 10)
   .then((hash) => {
     const queryString = `
-      INSERT INTO users(name, password, email, phone, customer_id)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO users(name, password, email, phone)
+      VALUES ($1, $2, $3, $4)
     `;
-    const values = [req.body.name, hash, req.body.email, req.body.phone, req.body.customer_id];
+    const values = [req.body.name, hash, req.body.email, req.body.phone];
     pool.query(queryString, values, (error, results) => {
       if (error) {
+        res.json({
+          result: false
+        });
         throw error
       }
       res.json({
+        result: true,
         message: "user created"
       });
       //response.status(200).json(results.rows)
     });
+  });
+
+  router.post('/logout', (req, res) => {
+    req.session.user_id = undefined;
   });
 });
 
