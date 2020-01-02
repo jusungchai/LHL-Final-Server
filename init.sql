@@ -11,10 +11,10 @@ CREATE TABLE users (
 );
 
 INSERT INTO users(name, password, email, phone, customer_id)
-VALUES ('Jay', 'password', 'jay@gmail.com', '4162793971', '1');
+VALUES ('Jay', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa', 'jay@gmail.com', '4162793971', '1');
 
 INSERT INTO users(name, password, email, phone, customer_id)
-VALUES ('Matt', 'password', 'matt@gmail.com', '4162793971', '2');
+VALUES ('Matt', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa', 'matt@gmail.com', '4162793971', '2');
 
 INSERT INTO users(name, password, email, phone, customer_id)
-VALUES ('Dan', 'password', 'dan@gmail.com', '4162793971', '3');
+VALUES ('Dan', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa', 'dan@gmail.com', '4162793971', '3');
