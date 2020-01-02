@@ -11,7 +11,9 @@ router.get('/', (req, res) => {
 
 router.post('/login', (req, res) => {
   console.log(req.body);
-  const queryString = `SELECT * FROM users WHERE email = $1`;
+  const table = req.body.jobber ? "jobbers" : "users";
+  console.log(table);
+  const queryString = `SELECT * FROM ${table} WHERE email = $1`;
   const values = [req.body.email];
   pool.query(queryString, values, (error, results) => {
     if (error) {
@@ -46,10 +48,11 @@ router.post('/login', (req, res) => {
 
 router.post('/signup', (req, res) => {
   console.log(req.body);
+  const table = req.body.jobber ? "jobbers" : "users";
   bcrypt.hash(req.body.password, 10)
   .then((hash) => {
     const queryString = `
-      INSERT INTO users(name, password, email, phone)
+      INSERT INTO ${table}(name, password, email, phone)
       VALUES ($1, $2, $3, $4)
     `;
     const values = [req.body.name, hash, req.body.email, req.body.phone];
