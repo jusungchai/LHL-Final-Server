@@ -1,5 +1,5 @@
 const express = require('express');
-const stripe = require("stripe")("sk_test_tKtMEgfYF4T8xMuFRMHLSz96004p22RQK1");
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 const uuid = require("uuid/v4");
 const router = express.Router();
 
