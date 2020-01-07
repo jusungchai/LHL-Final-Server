@@ -20,4 +20,50 @@ router.get('/', (req, res) => {
   })
 })
 
+router.post('/', (req, res) => {
+  const { 
+    name, 
+    description, 
+    hourly_rate, 
+    time_estimate, 
+    street_address,
+    post_cost  
+  } = req.body;
+  let queryString = `
+  INSERT INTO jobs(
+    name, 
+    user_id, 
+    description, 
+    hourly_rate,
+    time_estimate,
+    street_address,
+    post_code)
+  VALUES ($1, $2, $3, $4, $5, $6, $7);`
+  let values = [
+    name, 
+    req.session.userId,
+    description,
+    hourly_rate,
+    time_estimate,
+    street_address,
+    post_code
+  ]
+  pool.query(queryString, values, (error, results) => {
+    if (error) {
+      res.json({
+        result: false
+      });
+      throw error
+    }
+    res.json({
+      result: true,
+      message: "job posted"
+    });
+  })
+})
+
+router.delete(':id', (req, res) => {
+  console.log(req.body)
+})
+
 module.exports = router;
