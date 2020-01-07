@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { pool } = require('../config');
 const bcrypt = require('bcrypt');
+let userId;
 
 router.get('/', (req, res) => {
   res.json({
@@ -80,4 +81,4 @@ router.post('/logout', (req, res) => {
   });
 });
 
-module.exports = router;
+module.exports = router, userId;
