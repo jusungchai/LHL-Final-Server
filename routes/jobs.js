@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
     )
   VALUES ($1, $2, $3, $4, $5, $6, $7);`
   let values = [
-    req.body.service_type,
+    req.body.serviceType,
     req.session.userId,
     req.body.description,
     req.body.payRate,
