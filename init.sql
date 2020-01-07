@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS jobbers CASCADE;
+DROP TABLE IF EXISTS skills CASCADE;
 DROP TABLE IF EXISTS jobs CASCADE;
 
 CREATE TABLE users (
@@ -19,6 +20,11 @@ CREATE TABLE jobbers (
   email VARCHAR(255) NOT NULL,
   phone VARCHAR(255) NOT NULL,
   is_deleted BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE skills (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE jobs (
@@ -47,6 +53,15 @@ VALUES ('Dan', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa', '
 
 INSERT INTO jobbers(name, password, email, phone)
 VALUES ('Kevin', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa', 'kevin@gmail.com', '4162793971');
+
+INSERT INTO skills(name)
+VALUES ('Snow Plow');
+
+INSERT INTO skills(name)
+VALUES ('Lawn Mow');
+
+INSERT INTO skills(name)
+VALUES ('Escort');
 
 INSERT INTO jobs(
     is_deleted,
