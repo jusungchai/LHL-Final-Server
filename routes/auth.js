@@ -71,9 +71,13 @@ router.post('/signup', (req, res) => {
       //response.status(200).json(results.rows)
     });
   });
+});
 
-  router.post('/logout', (req, res) => {
-    req.session.user_id = undefined;
+router.post('/logout', (req, res) => {
+  req.session.userId = undefined;
+  res.json({
+    result: true,
+    message: "Logged Out"
   });
 });
 
