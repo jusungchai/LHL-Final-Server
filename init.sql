@@ -25,7 +25,7 @@ CREATE TABLE jobs (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
   user_id INTEGER REFERENCES users(id) NOT NULL,
-  jobber_id INTEGER REFERENCES jobbers(id),
+  jobber_id INTEGER REFERENCES jobbers(id) DEFAULT NULL,
   description VARCHAR(255) NOT NULL,
   hourly_rate INTEGER DEFAULT 0,
   created_at TIMESTAMP DEFAULT NOW(),
@@ -61,6 +61,42 @@ INSERT INTO jobs(
     'A good, quality foot rub',
     50,
     1,
+    '300 Queen St. West',
+    'M5V2A2'
+  );
+
+INSERT INTO jobs(
+    name, 
+    user_id, 
+    description, 
+    hourly_rate,
+    time_estimate, 
+    street_address,
+    post_code) 
+  VALUES (
+    'Mow the Lawn',
+    1,
+    'This lawn aint gonna mow itself',
+    20,
+    2,
+    '300 Queen St. West',
+    'M5V2A2'
+  );
+
+INSERT INTO jobs(
+    name, 
+    user_id, 
+    description, 
+    hourly_rate,
+    time_estimate, 
+    street_address,
+    post_code) 
+  VALUES (
+    'Brush my Cat',
+    3,
+    'My cat needs a brushing',
+    25,
+    0.5,
     '300 Queen St. West',
     'M5V2A2'
   );

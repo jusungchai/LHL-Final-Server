@@ -22,7 +22,7 @@ app.use(cookieSession({
 
 app.use('/auth', auth);
 app.use('/checkout', checkout);
-app.use('/jobs', jobs);
+app.use('/myjobs', jobs);
 
 // Start server
 const port = process.env.PORT || 8001;
