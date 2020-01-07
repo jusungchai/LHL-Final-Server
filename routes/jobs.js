@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   let queryString = `
   INSERT INTO jobs(
-    serviceType, 
+    service_type, 
     user_id, 
     description, 
     hourly_rate,
@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
     )
   VALUES ($1, $2, $3, $4, $5, $6, $7);`
   let values = [
-    req.body.serviceType, 
+    req.body.service_type,
     req.session.userId,
     req.body.description,
     req.body.payRate,
