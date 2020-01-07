@@ -24,7 +24,7 @@ CREATE TABLE jobbers (
 CREATE TABLE jobs (
   id SERIAL PRIMARY KEY NOT NULL,
   is_deleted BOOLEAN DEFAULT false,
-  serviceType VARCHAR(255) NOT NULL,
+  service_type VARCHAR(255) NOT NULL,
   user_id INTEGER REFERENCES users(id) NOT NULL,
   jobber_id INTEGER REFERENCES jobbers(id) DEFAULT NULL,
   description VARCHAR(255) NOT NULL,
@@ -50,7 +50,7 @@ VALUES ('Kevin', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa',
 
 INSERT INTO jobs(
     is_deleted,
-    serviceType, 
+    service_type, 
     user_id, 
     description, 
     hourly_rate,
@@ -70,7 +70,7 @@ INSERT INTO jobs(
 
 INSERT INTO jobs(
     is_deleted,
-    serviceType, 
+    service_type, 
     user_id, 
     description, 
     hourly_rate,
@@ -90,7 +90,7 @@ INSERT INTO jobs(
 
 INSERT INTO jobs(
     is_deleted,
-    serviceType, 
+    service_type, 
     user_id, 
     description, 
     hourly_rate,
