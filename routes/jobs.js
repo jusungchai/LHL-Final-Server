@@ -21,17 +21,9 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { 
-    name, 
-    description, 
-    hourly_rate, 
-    time_estimate, 
-    street_address,
-    post_cost  
-  } = req.body;
   let queryString = `
   INSERT INTO jobs(
-    name, 
+    serviceType, 
     user_id, 
     description, 
     hourly_rate,
@@ -40,13 +32,13 @@ router.post('/', (req, res) => {
     post_code)
   VALUES ($1, $2, $3, $4, $5, $6, $7);`
   let values = [
-    name, 
+    req.body.serviceType, 
     req.session.userId,
-    description,
-    hourly_rate,
-    time_estimate,
-    street_address,
-    post_code
+    req.body.description,
+    req.body.payRate,
+    req.body.requiredTime,
+    req.body.address,
+    req.body.postalCode.split(" ").join("")
   ]
   pool.query(queryString, values, (error, results) => {
     if (error) {

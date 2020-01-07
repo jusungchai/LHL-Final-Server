@@ -23,7 +23,7 @@ CREATE TABLE jobbers (
 
 CREATE TABLE jobs (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL,
+  serviceType VARCHAR(255) NOT NULL,
   user_id INTEGER REFERENCES users(id) NOT NULL,
   jobber_id INTEGER REFERENCES jobbers(id) DEFAULT NULL,
   description VARCHAR(255) NOT NULL,
@@ -48,7 +48,7 @@ INSERT INTO jobbers(name, password, email, phone)
 VALUES ('Kevin', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa', 'kevin@gmail.com', '4162793971');
 
 INSERT INTO jobs(
-    name, 
+    serviceType, 
     user_id, 
     description, 
     hourly_rate,
@@ -66,7 +66,7 @@ INSERT INTO jobs(
   );
 
 INSERT INTO jobs(
-    name, 
+    serviceType, 
     user_id, 
     description, 
     hourly_rate,
@@ -84,7 +84,7 @@ INSERT INTO jobs(
   );
 
 INSERT INTO jobs(
-    name, 
+    serviceType, 
     user_id, 
     description, 
     hourly_rate,
