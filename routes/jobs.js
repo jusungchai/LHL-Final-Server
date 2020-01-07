@@ -4,7 +4,7 @@ const { pool } = require('../config');
 
 router.get('/', (req, res) => {
   console.log(req.body)
-  const queryString = `SELECT * FROM jobs WHERE user_id=$1`;
+  const queryString = `SELECT * FROM jobs WHERE user_id=$1 AND is_deleted=false`;
   console.log(req.session.userId)
   const id = [req.session.userId];
   console.log(id)
@@ -29,7 +29,8 @@ router.post('/', (req, res) => {
     hourly_rate,
     time_estimate,
     street_address,
-    post_code)
+    post_code
+    )
   VALUES ($1, $2, $3, $4, $5, $6, $7);`
   let values = [
     req.body.serviceType, 
@@ -54,8 +55,25 @@ router.post('/', (req, res) => {
   })
 })
 
-router.delete(':id', (req, res) => {
-  console.log(req.body)
+router.put('/', (req, res) => {
+  console.log(req.body[0])
+  const queryString = `
+  UPDATE jobs SET is_deleted=true
+  WHERE id=$1
+  `
+  const id = [req.body[0]]
+  pool.query(queryString, id, (error, results) => {
+    if (error) {
+      res.json({
+        result: false
+      });
+      res.json({
+        result: true,
+        message: "job deleted"
+      })
+    }
+  })
+  res.send('okay')
 })
 
 module.exports = router;

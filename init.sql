@@ -23,6 +23,7 @@ CREATE TABLE jobbers (
 
 CREATE TABLE jobs (
   id SERIAL PRIMARY KEY NOT NULL,
+  is_deleted BOOLEAN DEFAULT false,
   serviceType VARCHAR(255) NOT NULL,
   user_id INTEGER REFERENCES users(id) NOT NULL,
   jobber_id INTEGER REFERENCES jobbers(id) DEFAULT NULL,
@@ -48,6 +49,7 @@ INSERT INTO jobbers(name, password, email, phone)
 VALUES ('Kevin', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa', 'kevin@gmail.com', '4162793971');
 
 INSERT INTO jobs(
+    is_deleted,
     serviceType, 
     user_id, 
     description, 
@@ -56,6 +58,7 @@ INSERT INTO jobs(
     street_address,
     post_code) 
   VALUES (
+    false,
     'Foot Rub',
     1,
     'A good, quality foot rub',
@@ -66,6 +69,7 @@ INSERT INTO jobs(
   );
 
 INSERT INTO jobs(
+    is_deleted,
     serviceType, 
     user_id, 
     description, 
@@ -74,6 +78,7 @@ INSERT INTO jobs(
     street_address,
     post_code) 
   VALUES (
+    false,
     'Mow the Lawn',
     1,
     'This lawn aint gonna mow itself',
@@ -84,6 +89,7 @@ INSERT INTO jobs(
   );
 
 INSERT INTO jobs(
+    is_deleted,
     serviceType, 
     user_id, 
     description, 
@@ -92,6 +98,7 @@ INSERT INTO jobs(
     street_address,
     post_code) 
   VALUES (
+    false,
     'Brush my Cat',
     3,
     'My cat needs a brushing',
