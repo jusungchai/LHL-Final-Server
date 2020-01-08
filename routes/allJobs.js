@@ -30,12 +30,13 @@ router.get('/', (req, res) => {
   }
 })
 
-router.put('/:id', (req, res) => {
-  const jobId = req.params.id;
-  console.log("test", req);
+router.put('/', (req, res) => {
+  const jobId = req.body.params.id;
+  // console.log("test", req);
   let queryString;
+  console.log("dropjob bool", Boolean(req.body.params.dropJob))
 
-  if (req.dropJob) {
+  if (req.body.params.dropJob) {
     queryString = `
     UPDATE jobs SET jobber_id = NULL
     WHERE id=${jobId}
