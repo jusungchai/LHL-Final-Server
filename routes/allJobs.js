@@ -31,12 +31,24 @@ router.get('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  const jobId = req.params.id
-  const queryString = `
-  UPDATE jobs SET jobber_id=${req.session.userId}
-  WHERE id=${jobId}
-  `
-  const id = [req.body[0]]
+  const jobId = req.params.id;
+  console.log("test", req);
+  let queryString;
+
+  if (req.dropJob) {
+    queryString = `
+    UPDATE jobs SET jobber_id = NULL
+    WHERE id=${jobId}
+    `
+  } else {
+    console.log("here")
+    queryString = `
+    UPDATE jobs SET jobber_id=${req.session.userId}
+    WHERE id=${jobId}
+    `
+  }
+  console.log("QS", queryString)
+  // const id = [req.body[0]]
   pool.query(queryString, (error, results) => {
     // if (error) {
     //   res.json({
