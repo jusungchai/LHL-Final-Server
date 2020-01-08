@@ -61,7 +61,7 @@ INSERT INTO skills(name)
 VALUES ('Lawn Mow');
 
 INSERT INTO skills(name)
-VALUES ('Escort');
+VALUES ('Foot Rub');
 
 INSERT INTO jobs(
     is_deleted,
