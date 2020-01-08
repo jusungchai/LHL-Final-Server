@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
 const jobs = require('./routes/jobs');
+const allJobs = require('./routes/allJobs');
 const auth = require('./routes/auth');
 const checkout = require('./routes/checkout');
 const skills = require('./routes/skills');
@@ -25,6 +26,7 @@ app.use('/auth', auth);
 app.use('/checkout', checkout);
 app.use('/skills', skills);
 app.use('/myjobs', jobs);
+app.use('/jobs', allJobs);
 
 // Start server
 const port = process.env.PORT || 8001;
