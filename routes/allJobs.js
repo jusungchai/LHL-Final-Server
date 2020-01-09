@@ -47,6 +47,12 @@ router.put('/', (req, res) => {
     UPDATE jobs SET jobber_confirm=true
     WHERE id=${jobId}
     `
+  } else if (req.body.params.confirmComplete) {
+    console.log("here")
+    queryString = `
+    UPDATE jobs SET user_confirm=true
+    WHERE id=${jobId}
+    `
   } else {
     queryString = `
     UPDATE jobs SET jobber_id=${req.session.userId}
