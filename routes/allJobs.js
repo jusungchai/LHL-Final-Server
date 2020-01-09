@@ -4,6 +4,7 @@ const { pool } = require('../config');
 
 router.get('/', (req, res) => {
   if (req.query.id) {
+    console.log(req)
     const queryString = `SELECT * FROM jobs WHERE id=${req.query.id}`;
     pool.query(queryString, (error, results) => {
       if (error) {
