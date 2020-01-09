@@ -33,6 +33,8 @@ CREATE TABLE jobs (
   service_type VARCHAR(255) NOT NULL,
   user_id INTEGER REFERENCES users(id) NOT NULL,
   jobber_id INTEGER REFERENCES jobbers(id) DEFAULT NULL,
+  user_confirm BOOLEAN DEFAULT false,
+  jobber_confirm BOOLEAN DEFAULT false,
   description VARCHAR(255) NOT NULL,
   hourly_rate INTEGER DEFAULT 0,
   created_at TIMESTAMP DEFAULT NOW(),
