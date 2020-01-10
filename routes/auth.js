@@ -21,9 +21,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  console.log(req.body);
   const table = req.body.jobber ? "jobbers" : "users";
-  console.log(table);
   const queryString = `SELECT * FROM ${table} WHERE email = $1`;
   const values = [req.body.email];
   pool.query(queryString, values, (error, results) => {
@@ -53,7 +51,7 @@ router.post('/login', (req, res) => {
         message: "user not found"
       });
     }
-    
+
     //response.status(200).json(results.rows)
   })
 });
@@ -62,26 +60,26 @@ router.post('/signup', (req, res) => {
   console.log(req.body);
   const table = req.body.jobber ? "jobbers" : "users";
   bcrypt.hash(req.body.password, 10)
-  .then((hash) => {
-    const queryString = `
+    .then((hash) => {
+      const queryString = `
       INSERT INTO ${table}(name, password, email, phone)
       VALUES ($1, $2, $3, $4)
     `;
-    const values = [req.body.name, hash, req.body.email, req.body.phone];
-    pool.query(queryString, values, (error, results) => {
-      if (error) {
+      const values = [req.body.name, hash, req.body.email, req.body.phone];
+      pool.query(queryString, values, (error, results) => {
+        if (error) {
+          res.json({
+            result: false
+          });
+          throw error
+        }
         res.json({
-          result: false
+          result: true,
+          message: "user created"
         });
-        throw error
-      }
-      res.json({
-        result: true,
-        message: "user created"
+        //response.status(200).json(results.rows)
       });
-      //response.status(200).json(results.rows)
     });
-  });
 });
 
 router.post('/logout', (req, res) => {

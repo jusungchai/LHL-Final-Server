@@ -4,6 +4,7 @@ const { pool } = require('../config');
 
 router.get('/', (req, res) => {
   if (req.query.id) {
+    console.log(req)
     const queryString = `SELECT * FROM jobs WHERE id=${req.query.id}`;
     pool.query(queryString, (error, results) => {
       if (error) {
@@ -34,15 +35,26 @@ router.put('/', (req, res) => {
   const jobId = req.body.params.id;
   // console.log("test", req);
   let queryString;
-  console.log("dropjob bool", Boolean(req.body.params.dropJob))
+  console.log(req.body.params)
 
   if (req.body.params.dropJob) {
     queryString = `
-    UPDATE jobs SET jobber_id = NULL
+    UPDATE jobs SET jobber_id=NULL
+    WHERE id=${jobId}
+    `
+  } else if (req.body.params.markComplete) {
+    console.log("here")
+    queryString = `
+    UPDATE jobs SET jobber_confirm=true
+    WHERE id=${jobId}
+    `
+  } else if (req.body.params.confirmComplete) {
+    console.log("here")
+    queryString = `
+    UPDATE jobs SET user_confirm=true
     WHERE id=${jobId}
     `
   } else {
-    console.log("here")
     queryString = `
     UPDATE jobs SET jobber_id=${req.session.userId}
     WHERE id=${jobId}
