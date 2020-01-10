@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 let userId;
 
 router.get('/', (req, res) => {
-  console.log(process.env)
   if (req.session.userId) {
     res.json({
       result: "user"
