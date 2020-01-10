@@ -13,7 +13,7 @@ const server = http.createServer(app);
 
 const WebSocket = require('ws');
 
-app.use(cors());
+// app.use(cors());
 const wss = new WebSocket.Server({ port: 8080 });
 
 wss.on('connection', function connection(ws) {
