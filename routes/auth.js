@@ -5,9 +5,19 @@ const bcrypt = require('bcrypt');
 let userId;
 
 router.get('/', (req, res) => {
-  res.json({
-    message: 'yolo'
-  });
+  if (req.session.userId) {
+    res.json({
+      result: "user"
+    })
+  } else if (req.session.jobberId) {
+    res.json({
+      result: "jobber"
+    })
+  } else {
+    res.json({
+      result: "none"
+    })
+  }  
 });
 
 router.post('/login', (req, res) => {
@@ -20,20 +30,21 @@ router.post('/login', (req, res) => {
     }
     if (results.rows.length > 0) {
       bcrypt.compare(req.body.password, results.rows[0].password)
-        .then((result) => {
-          if (result) {
-            req.session.userId = results.rows[0].id;
-            res.json({
-              result,
-              message: "logged in"
-            });
-          } else {
-            res.json({
-              result,
-              message: "wrong pw"
-            });
-          }
-        })
+      .then((result) => {
+        if (result) {
+          if (req.body.jobber) req.session.jobberId = results.rows[0].id;
+          else req.session.userId = results.rows[0].id;
+          res.json({
+            result,
+            message: "logged in"
+          });
+        } else {
+          res.json({
+            result,
+            message: "wrong pw"
+          });
+        }        
+      })
     } else {
       res.json({
         result: false,
@@ -73,6 +84,7 @@ router.post('/signup', (req, res) => {
 
 router.post('/logout', (req, res) => {
   req.session.userId = undefined;
+  req.session.jobberId = undefined;
   res.json({
     result: true,
     message: "Logged Out"
