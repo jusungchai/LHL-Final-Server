@@ -13,6 +13,7 @@ const server = http.createServer(app);
 
 const WebSocket = require('ws');
 
+app.use(cors());
 const wss = new WebSocket.Server({ port: 8080 });
 
 wss.on('connection', function connection(ws) {
@@ -29,7 +30,6 @@ wss.on('connection', function connection(ws) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
 // app.options('*:*', cors())
 
 app.use(cookieSession({
