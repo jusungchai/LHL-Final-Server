@@ -56,7 +56,7 @@ router.put('/', (req, res) => {
     `
   } else {
     queryString = `
-    UPDATE jobs SET jobber_id=${req.session.userId}
+    UPDATE jobs SET jobber_id=${req.session.jobberId}
     WHERE id=${jobId}
     `
   }
