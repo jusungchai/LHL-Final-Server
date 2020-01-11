@@ -41,7 +41,9 @@ CREATE TABLE jobs (
   fulfilled_at TIMESTAMP DEFAULT NULL,
   time_estimate SMALLINT DEFAULT NULL,
   street_address VARCHAR(255) NOT NULL,
-  post_code CHAR(6) NOT NULL
+  post_code CHAR(6) NOT NULL,
+  lat NUMERIC NOT NULL,
+  long NUMERIC NOT NULL
 );
 
 INSERT INTO users(name, password, email, phone, customer_id)
@@ -73,7 +75,9 @@ INSERT INTO jobs(
     hourly_rate,
     time_estimate, 
     street_address,
-    post_code) 
+    post_code,
+    lat,
+    long) 
   VALUES (
     false,
     'Foot Rub',
@@ -82,7 +86,9 @@ INSERT INTO jobs(
     50,
     1,
     '300 Queen St. West',
-    'M5V2A2'
+    'M5V2A2',
+    43.9532233,
+    -79.48128629999999
   );
 
 INSERT INTO jobs(
@@ -93,7 +99,9 @@ INSERT INTO jobs(
     hourly_rate,
     time_estimate, 
     street_address,
-    post_code) 
+    post_code,
+    lat,
+    long) 
   VALUES (
     false,
     'Mow the Lawn',
@@ -102,7 +110,9 @@ INSERT INTO jobs(
     20,
     2,
     '300 Queen St. West',
-    'M5V2A2'
+    'M5V2A2',
+    43.64931790000001,
+    -79.39494759999999
   );
 
 INSERT INTO jobs(
@@ -113,7 +123,9 @@ INSERT INTO jobs(
     hourly_rate,
     time_estimate, 
     street_address,
-    post_code) 
+    post_code,
+    lat,
+    long) 
   VALUES (
     false,
     'Brush my Cat',
@@ -122,5 +134,7 @@ INSERT INTO jobs(
     25,
     0.5,
     '300 Queen St. West',
-    'M5V2A2'
+    'M5V2A2',
+    43.777,
+    -79.777
   );

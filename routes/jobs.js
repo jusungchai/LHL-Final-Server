@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { pool } = require('../config');
+const axios = require('axios');
 
 router.get('/', (req, res) => {
   // console.log(req.body)
@@ -45,9 +46,11 @@ router.post('/', (req, res) => {
     hourly_rate,
     time_estimate,
     street_address,
-    post_code
+    post_code,
+    lat,
+    long
     )
-  VALUES ($1, $2, $3, $4, $5, $6, $7);`
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
   let values = [
     req.body.serviceType,
     req.session.userId,
@@ -55,7 +58,9 @@ router.post('/', (req, res) => {
     req.body.payRate,
     req.body.requiredTime,
     req.body.address,
-    req.body.postalCode.split(" ").join("")
+    req.body.postalCode.split(" ").join(""),
+    req.body.coords.lat,
+    req.body.coords.lng
   ]
   pool.query(queryString, values, (error, results) => {
     if (error) {
