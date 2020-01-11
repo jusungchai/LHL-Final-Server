@@ -2,8 +2,9 @@ require('dotenv').config()
 const axios = require('axios');
 const GMAPS_KEY = process.env.GMAPS_KEY;
 
-function getDirections(originPostalCode, destinationPostalCode) {
-  return axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${originPostalCode},+Canada&destinations=${destinationPostalCode},+Canada&key=${GMAPS_KEY}`)
+function getDirections(origin, destination) {
+  console.log(origin, destination)
+  return axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${origin.latitude},${origin.longitude}&destinations=${destination},+Canada&key=${GMAPS_KEY}`)
     .then((response) => {
       return {
         distance: response.data.rows[0].elements[0].distance.text,
@@ -11,7 +12,7 @@ function getDirections(originPostalCode, destinationPostalCode) {
       };
     })
     .catch((error) => {
-      console.log(error);
+      console.log("Error in GMAPS call: ", error);
     });
 }
 
