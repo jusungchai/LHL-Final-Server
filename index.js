@@ -9,12 +9,13 @@ const allJobs = require('./routes/allJobs');
 const auth = require('./routes/auth');
 const checkout = require('./routes/checkout');
 const skills = require('./routes/skills');
-const server = http.createServer(app);
+//const server = http.createServer(app);
+const server = require("http").Server(app);
 
 const WebSocket = require('ws');
 
 // app.use(cors());
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws) {
   console.log('connected')
@@ -55,6 +56,6 @@ app.use('/jobs', allJobs);
 
 // Start server
 const port = process.env.PORT || 8001;
-app.listen(port);
+server.listen(port);
 
 console.log('App is listening on port ' + port);
