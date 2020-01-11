@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const { pool } = require('../config');
-const { getDistance, getTime } = require(`../maps`);
+const { getDirections } = require(`../maps`);
 
-const setDistanceTime = async function(jobs) {
-  for (let job of jobs){
-    await getTime(jobberPostalCode, job.post_code)
-    .then ((time) => job.time = time)
-    await getDistance(jobberPostalCode, job.post_code)
-    .then ((distance) => job.distance = distance)
+const setDistanceTime = async function (jobs) {
+  for (let job of jobs) {
+    await getDirections(jobberPostalCode, job.post_code)
+      .then((directions) => {
+        job.distance = directions.distance;
+        job.time = directions.time;
+      })
   }
   console.log(jobs)
   return jobs
@@ -35,9 +36,9 @@ router.get('/', (req, res) => {
         throw error
       }
       if (results.rows.length > 0) {
-        jobberPostalCode = "M6J3W7";        
+        jobberPostalCode = "M6J3W7";
         setDistanceTime(results.rows)
-        .then((jobs) => res.json(jobs))        
+          .then((jobs) => res.json(jobs))
       } else {
         console.log(results)
       }
