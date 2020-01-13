@@ -3,7 +3,7 @@ const router = express.Router();
 const { pool } = require('../config');
 const { getDirections } = require(`../maps`);
 
-const setDistanceTime = async function (jobs) {
+const setDistanceTime = async function (jobs, jobberCoords) {
   for (let job of jobs) {
     await getDirections(jobberCoords, job.post_code)
       .then((directions) => {
@@ -11,7 +11,6 @@ const setDistanceTime = async function (jobs) {
         job.time = directions.time;
       })
   }
-  console.log(jobs)
   return jobs
 }
 
@@ -47,8 +46,10 @@ router.get('/', (req, res) => {
           latitude: req.query.lat,
           longitude: req.query.lng
         };
-        setDistanceTime(results.rows)
-          .then((jobs) => res.json(jobs))
+        if (jobberCoords.latitude) {
+          setDistanceTime(results.rows, jobberCoords)
+            .then((jobs) => res.json(jobs))
+        }
       } else {
         jobberCoords = {
           latitude: 43.6440936,
