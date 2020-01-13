@@ -26,7 +26,7 @@ wss.on('connection', function connection(ws) {
     });
   });
 });
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
@@ -51,6 +51,7 @@ app.use('/checkout', checkout);
 app.use('/skills', skills);
 app.use('/myjobs', jobs);
 app.use('/jobs', allJobs);
+// app.use('/history', history);
 
 
 // Start server
