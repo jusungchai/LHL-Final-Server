@@ -3,7 +3,21 @@ const router = express.Router();
 const { pool } = require('../config');
 const { getDirections } = require(`../maps`);
 
-const setDistanceTime = async function (jobs) {
+// const setDistanceTime = async function (jobs, jobberCoords) {
+//   const promises = [];
+//   for (let job of jobs) {
+//     console.log(job)
+//     promises
+//     .push(getDirections(jobberCoords, job.post_code));
+//   }
+//   temp = await Promise.all(promises)
+//   const all = temp.map( (e, i) => { return { ...e}});
+//   console.log('//////')
+//   console.log(temp)
+//   return temp
+// }
+
+const setDistanceTime = async function (jobs, jobberCoords) {
   for (let job of jobs) {
     await getDirections(jobberCoords, job.post_code)
       .then((directions) => {
@@ -11,7 +25,7 @@ const setDistanceTime = async function (jobs) {
         job.time = directions.time;
       })
   }
-  console.log(jobs)
+  
   return jobs
 }
 
@@ -43,14 +57,20 @@ router.get('/', (req, res) => {
         throw error
       }
       if (results.rows.length > 0) {
-        jobberCoords = {
+        const jobberCoords = {
           latitude: req.query.lat,
           longitude: req.query.lng
         };
-        setDistanceTime(results.rows)
+        console.log("fuckthis", jobberCoords)
+        if (jobberCoords.latitude){
+          console.log("test 123", jobberCoords)
+          setDistanceTime(results.rows, jobberCoords)
           .then((jobs) => res.json(jobs))
+        } 
+
+    
       } else {
-        console.log(results)
+        console.log("test", results)
       }
     })
   }

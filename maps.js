@@ -3,7 +3,7 @@ const axios = require('axios');
 const GMAPS_KEY = process.env.GMAPS_KEY;
 
 function getDirections(origin, destination) {
-  console.log(origin, destination)
+  console.log("getDirections call: ", origin, destination)
   return axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${origin.latitude},${origin.longitude}&destinations=${destination},+Canada&key=${GMAPS_KEY}`)
     .then((response) => {
       return {
