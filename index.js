@@ -15,7 +15,7 @@ const server = require("http").Server(app);
 const WebSocket = require('ws');
 
 // app.use(cors());
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ port: 8080 } || { server });
 
 wss.on('connection', socket => {
   console.log('connected')
