@@ -3,17 +3,21 @@ const router = express.Router();
 const { pool } = require('../config');
 
 router.get('/', (req, res) => {
+  console.log("In History")
+  let queryString;
   if (req.session.jobberId) {
-    const queryString = `
+    console.log("History Jobber ID: ", req.session.jobberId);
+    queryString = `
     SELECT jobs.*, users.name FROM jobs
     JOIN users ON jobs.user_id = users.id
-    WHERE jobs.jobber_id=${req.query.jobber_id} AND user_confirm=true AND jobber_confirm=true
+    WHERE jobs.jobber_id=${req.session.jobberId}
     `
   } else if (req.session.userId) {
-    const queryString = `
+    console.log("History User ID: ", req.session.userId)
+    queryString = `
     SELECT jobs.*, users.name FROM jobs
     JOIN users ON jobs.user_id = users.id
-    WHERE jobs.user_id=${req.query.user_id} AND user_confirm=true AND jobber_confirm=true
+    WHERE jobs.user_id=${req.session.userId} AND user_confirm=true AND jobber_confirm=true
     `
   };
   pool.query(queryString, (error, results) => {
@@ -27,3 +31,5 @@ router.get('/', (req, res) => {
     }
   })
 });
+
+module.exports = router;

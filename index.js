@@ -9,6 +9,7 @@ const allJobs = require('./routes/allJobs');
 const auth = require('./routes/auth');
 const checkout = require('./routes/checkout');
 const skills = require('./routes/skills');
+const history = require('./routes/history');
 const server = http.createServer(app);
 
 const WebSocket = require('ws');
@@ -51,7 +52,7 @@ app.use('/checkout', checkout);
 app.use('/skills', skills);
 app.use('/myjobs', jobs);
 app.use('/jobs', allJobs);
-// app.use('/history', history);
+app.use('/history', history);
 
 
 // Start server
