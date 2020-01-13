@@ -17,9 +17,9 @@ const WebSocket = require('ws');
 // app.use(cors());
 const wss = new WebSocket.Server({ server });
 
-wss.on('connection', function connection(ws) {
+wss.on('connection', socket => {
   console.log('connected')
-  ws.on('message', function incoming(data) {
+  socket.on('message', data => {
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(data);
@@ -27,6 +27,7 @@ wss.on('connection', function connection(ws) {
     });
   });
 });
+
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Origin', req.headers.origin);
