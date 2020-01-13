@@ -18,7 +18,10 @@ const setDistanceTime = async function (jobs) {
 router.get('/', (req, res) => {
   if (req.query.id) {
     console.log(req)
-    const queryString = `SELECT * FROM jobs WHERE id=${req.query.id}`;
+    const queryString = `
+    SELECT jobs.*, users.name FROM jobs 
+    JOIN users ON jobs.user_id = users.id
+    WHERE jobs.id=${req.query.id}`;
     pool.query(queryString, (error, results) => {
       if (error) {
         throw error
@@ -30,7 +33,10 @@ router.get('/', (req, res) => {
       }
     })
   } else {
-    const queryString = `SELECT * FROM jobs WHERE jobber_id IS NULL AND is_deleted=false`;
+    const queryString = `
+    SELECT jobs.*, users.name FROM jobs 
+    JOIN users ON jobs.user_id = users.id
+    WHERE jobs.jobber_id IS NULL AND jobs.is_deleted=false`;
     pool.query(queryString, (error, results) => {
       if (error) {
         throw error
