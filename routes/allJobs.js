@@ -5,7 +5,7 @@ const { getDirections } = require(`../maps`);
 
 const setDistanceTime = async function (jobs) {
   for (let job of jobs) {
-    await getDirections(jobberPostalCode, job.post_code)
+    await getDirections(jobberCoords, job.post_code)
       .then((directions) => {
         job.distance = directions.distance;
         job.time = directions.time;
@@ -16,6 +16,7 @@ const setDistanceTime = async function (jobs) {
 }
 
 router.get('/', (req, res) => {
+  console.log(req.query)
   if (req.query.id) {
     console.log(req)
     const queryString = `
@@ -42,7 +43,10 @@ router.get('/', (req, res) => {
         throw error
       }
       if (results.rows.length > 0) {
-        jobberPostalCode = "M6J3W7";
+        jobberCoords = {
+          latitude: req.query.lat,
+          longitude: req.query.lng
+        };
         setDistanceTime(results.rows)
           .then((jobs) => res.json(jobs))
       } else {
