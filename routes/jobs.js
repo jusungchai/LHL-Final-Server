@@ -1,6 +1,10 @@
+require('dotenv').config
 const express = require('express');
 const router = express.Router();
 const { pool } = require('../config');
+const axios = require('axios');
+
+const update = false;
 
 router.get('/', (req, res) => {
   // console.log(req.body)
@@ -35,19 +39,19 @@ router.get('/', (req, res) => {
 //     }
 //   })
 // })
+const getCoords = async (postcode, value) => {
+  const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=${process.env.GMAPS_KEY}`)
+  const jsonRes = await res.data.results[0]
+  // console.log('getcoords', jsonRes.geometry.location)
+
+  jsonRes.length === 0 ? 
+  value.coords.push(43.6440936) &&
+  value.coords.push(-79.39494759999999)
+  : value.push(jsonRes.geometry.location.lat) &&
+  value.push(jsonRes.geometry.location.lng);
+}
 
 router.post('/', (req, res) => {
-  let queryString = `
-  INSERT INTO jobs(
-    service_type, 
-    user_id, 
-    description, 
-    hourly_rate,
-    time_estimate,
-    street_address,
-    post_code
-    )
-  VALUES ($1, $2, $3, $4, $5, $6, $7);`
   let values = [
     req.body.serviceType,
     req.session.userId,
@@ -57,18 +61,40 @@ router.post('/', (req, res) => {
     req.body.address,
     req.body.postalCode.split(" ").join("")
   ]
-  pool.query(queryString, values, (error, results) => {
-    if (error) {
+  let queryString = `
+  INSERT INTO jobs(
+    service_type, 
+    user_id, 
+    description, 
+    hourly_rate,
+    time_estimate,
+    street_address,
+    post_code,
+    lat,
+    long
+    )
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
+
+  getCoords(req.body.postalCode.split(" ").join(""), values)
+  .then(() => {
+    pool.query(queryString, values, (error, results) => {
+      if (error) {
+        res.json({
+          result: false
+        });
+        throw error
+      }
+  
       res.json({
-        result: false
+        result: true,
+        message: "job posted"
       });
-      throw error
-    }
-    res.json({
-      result: true,
-      message: "job posted"
-    });
+    })
   })
+
+  
+  
+  
 })
 
 router.put('/', (req, res) => {
