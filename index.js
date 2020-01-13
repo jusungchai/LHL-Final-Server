@@ -14,7 +14,7 @@ const server = require("http").Server(app);
 
 const WebSocket = require('ws');
 
-app.use(cors());
+// app.use(cors());
 const wss = new WebSocket.Server(!process.env.PRODUCTION ? {port: 8080} : { server });
 
 wss.on('connection', socket => {
