@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { pool } = require('../config');
-const { getDirections } = require(`../maps`);
+// const { getDirections } = require(`./maps`);
 
 const setDistanceTime = async function (jobs, jobberCoords) {
   for (let job of jobs) {
@@ -42,17 +42,9 @@ router.get('/', (req, res) => {
         throw error
       }
       if (results.rows.length > 0) {
-        jobberCoords = {
-          latitude: req.query.lat,
-          longitude: req.query.lng
-        };
-        if (jobberCoords.latitude) {
-          setDistanceTime(results.rows, jobberCoords)
-            .then((jobs) => res.json(jobs))
-        }
-      } else {
-        console.log(results)
-      }
+        res.json(results.rows)
+        
+      } 
     })
   }
 })

@@ -20,6 +20,24 @@ router.get('/', (req, res) => {
   }  
 });
 
+router.put('/', (req, res) => {
+  const queryString = `
+    UPDATE jobbers SET lat=$1, long=$2
+    WHERE email=$3; `;
+  values = [req.body[0], req.body[1], req.body[2]]
+  pool.query(queryString, values, (error, results) => {
+    if (error) {
+      throw error
+    } else {
+      res.json({
+        result: true,
+        message: "updated coords"
+      })
+    }
+  })
+  console.log('updated coords')
+})
+
 router.post('/login', (req, res) => {
   const table = req.body.jobber ? "jobbers" : "users";
   const queryString = `SELECT * FROM ${table} WHERE email = $1`;
