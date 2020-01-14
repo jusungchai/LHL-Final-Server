@@ -10,16 +10,17 @@ const auth = require('./routes/auth');
 const checkout = require('./routes/checkout');
 const skills = require('./routes/skills');
 const history = require('./routes/history');
-const server = http.createServer(app);
+//const server = http.createServer(app);
+const server = require("http").Server(app);
 
 const WebSocket = require('ws');
 
 // app.use(cors());
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server(!process.env.PRODUCTION ? {port: 8080} : { server });
 
-wss.on('connection', function connection(ws) {
+wss.on('connection', socket => {
   console.log('connected')
-  ws.on('message', function incoming(data) {
+  socket.on('message', data => {
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(data);
@@ -27,7 +28,8 @@ wss.on('connection', function connection(ws) {
     });
   });
 });
-app.use(function (req, res, next) {
+
+app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
@@ -57,6 +59,6 @@ app.use('/history', history);
 
 // Start server
 const port = process.env.PORT || 8001;
-app.listen(port);
+server.listen(port);
 
 console.log('App is listening on port ' + port);
