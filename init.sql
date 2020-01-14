@@ -122,7 +122,7 @@ INSERT INTO jobs(
     20,
     2,
     '300 Queen St. West',
-    'M5V2A2',
+    'M5H4G1',
     43.64931790000001,
     -79.39494759999999
   );
@@ -146,7 +146,7 @@ INSERT INTO jobs(
     25,
     0.5,
     '300 Queen St. West',
-    'M5V2A2',
+    'M5J2T6',
     43.777,
     -79.777
   );
