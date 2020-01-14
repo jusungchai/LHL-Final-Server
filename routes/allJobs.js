@@ -27,7 +27,7 @@ const setDistanceTime = async function (jobs, jobberCoords) {
   }
   
   return jobs
-}
+} 
 
 router.get('/', (req, res) => {
   console.log(req.query)
