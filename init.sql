@@ -61,12 +61,13 @@ INSERT INTO jobbers(name, password, email, phone)
 VALUES ('Kevin', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa', 'kevin@gmail.com', '4162793971');
 
 INSERT INTO skills(name)
-VALUES ('Snow Plow');
+VALUES ('Construction');
 
 INSERT INTO skills(name)
-VALUES ('Lawn Mow');
+VALUES ('Home Maintenance');
 
 INSERT INTO skills(name)
+
 VALUES ('Health');
 
 INSERT INTO skills(name)
@@ -112,7 +113,7 @@ INSERT INTO jobs(
     long) 
   VALUES (
     false,
-    'Foot Rub',
+    'Personal Health',
     1,
     'A good, quality foot rub',
     50,
@@ -142,7 +143,7 @@ INSERT INTO jobs(
     20,
     2,
     '300 Queen St. West',
-    'M5V2A2',
+    'M5H4G1',
     43.64931790000001,
     -79.39494759999999
   );
@@ -166,7 +167,7 @@ INSERT INTO jobs(
     25,
     0.5,
     '300 Queen St. West',
-    'M5V2A2',
+    'M5J2T6',
     43.777,
     -79.777
   );

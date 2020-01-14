@@ -8,7 +8,7 @@ const update = false;
 
 router.get('/', (req, res) => {
   // console.log(req.body)
-  const queryString = `SELECT * FROM jobs WHERE user_id=$1 AND is_deleted=false`;
+  const queryString = `SELECT * FROM jobs WHERE user_id=$1 AND is_deleted=false ORDER BY id DESC`;
   console.log(req.session.userId)
   const id = [req.session.userId];
   console.log(id)
