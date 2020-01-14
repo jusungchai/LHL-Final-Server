@@ -47,16 +47,11 @@ router.get('/', (req, res) => {
           longitude: req.query.lng
         };
         if (jobberCoords.latitude) {
+          console.log("Jobber Coords Received")
           setDistanceTime(results.rows, jobberCoords)
             .then((jobs) => res.json(jobs))
         }
       } else {
-        jobberCoords = {
-          latitude: 43.6440936,
-          longitude: -79.39494759999999
-        };
-        setDistanceTime(results.rows)
-          .then((jobs) => res.json(jobs))
         console.log(results)
       }
     })
