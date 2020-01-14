@@ -24,7 +24,7 @@ function getTime(originPostalCode, destinationPostalCode) {
   });
 }
 
-getDistance("L4S1H3", "M6J3W7").then(distance => console.log(distance));
-getTime("L4S1H3", "M6J3W7").then(time => console.log(time));
+// getDistance("L4S1H3", "M6J3W7").then(distance => console.log(distance));
+// getTime("L4S1H3", "M6J3W7").then(time => console.log(time));
 
 module.exports = { getDistance, getTime };
