@@ -67,7 +67,37 @@ INSERT INTO skills(name)
 VALUES ('Lawn Mow');
 
 INSERT INTO skills(name)
-VALUES ('Foot Rub');
+VALUES ('Health');
+
+INSERT INTO skills(name)
+VALUES ('Cleaning');
+
+INSERT INTO skills(name)
+VALUES ('Farm Work');
+
+INSERT INTO skills(name)
+VALUES ('Investigation');
+
+INSERT INTO skills(name)
+VALUES ('Yard Work');
+
+INSERT INTO skills(name)
+VALUES ('Clowning');
+
+INSERT INTO skills(name)
+VALUES ('Siege');
+
+INSERT INTO skills(name)
+VALUES ('Painting');
+
+INSERT INTO skills(name)
+VALUES ('Pet Sitting');
+
+INSERT INTO skills(name)
+VALUES ('Construction');
+
+INSERT INTO skills(name)
+VALUES ('Code');
 
 INSERT INTO jobs(
     is_deleted,
@@ -106,7 +136,7 @@ INSERT INTO jobs(
     long) 
   VALUES (
     false,
-    'Mow the Lawn',
+    'Lawn Mow',
     1,
     'This lawn aint gonna mow itself',
     20,
@@ -130,7 +160,7 @@ INSERT INTO jobs(
     long) 
   VALUES (
     false,
-    'Brush my Cat',
+    'Pet Sitting',
     3,
     'My cat needs a brushing',
     25,
