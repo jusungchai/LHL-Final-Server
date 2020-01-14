@@ -59,13 +59,25 @@ INSERT INTO jobbers(name, password, email, phone)
 VALUES ('Kevin', '$2b$10$AlzIaZxqfB3ttQZ8xqB.y.m0ZDJqkEOlaO1reCsW4p1Iinr1z4qNa', 'kevin@gmail.com', '4162793971');
 
 INSERT INTO skills(name)
-VALUES ('Snow Plow');
+VALUES ('Construction');
 
 INSERT INTO skills(name)
-VALUES ('Lawn Mow');
+VALUES ('Home Maintenance');
 
 INSERT INTO skills(name)
-VALUES ('Foot Rub');
+VALUES ('Transportation');
+
+INSERT INTO skills(name)
+VALUES ('Furniture Moving and Assembly');
+
+INSERT INTO skills(name)
+VALUES ('Personal Health');
+
+INSERT INTO skills(name)
+VALUES ('Pet Care');
+
+INSERT INTO skills(name)
+VALUES ('Other');
 
 INSERT INTO jobs(
     is_deleted,
@@ -80,7 +92,7 @@ INSERT INTO jobs(
     long) 
   VALUES (
     false,
-    'Foot Rub',
+    'Personal Health',
     1,
     'A good, quality foot rub',
     50,
@@ -104,7 +116,7 @@ INSERT INTO jobs(
     long) 
   VALUES (
     false,
-    'Mow the Lawn',
+    'Home Maintenance',
     1,
     'This lawn aint gonna mow itself',
     20,
@@ -128,7 +140,7 @@ INSERT INTO jobs(
     long) 
   VALUES (
     false,
-    'Brush my Cat',
+    'Pet Care',
     3,
     'My cat needs a brushing',
     25,
