@@ -10,6 +10,7 @@ const auth = require('./routes/auth');
 const checkout = require('./routes/checkout');
 const skills = require('./routes/skills');
 const history = require('./routes/history');
+const maps = require('./routes/maps');
 //const server = http.createServer(app);
 const server = require("http").Server(app);
 
@@ -55,6 +56,8 @@ app.use('/skills', skills);
 app.use('/myjobs', jobs);
 app.use('/jobs', allJobs);
 app.use('/history', history);
+app.use('/travel', maps)
+
 
 
 // Start server
