@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { pool } = require('../config');
-// const { getDirections } = require(`./maps`);
 
 const setDistanceTime = async function (jobs, jobberCoords) {
   for (let job of jobs) {
@@ -12,7 +11,7 @@ const setDistanceTime = async function (jobs, jobberCoords) {
       })
   }
   return jobs
-} 
+}
 
 router.get('/', (req, res) => {
   console.log(req.query)
@@ -43,15 +42,14 @@ router.get('/', (req, res) => {
       }
       if (results.rows.length > 0) {
         res.json(results.rows)
-        
-      } 
+
+      }
     })
   }
 })
 
 router.put('/', (req, res) => {
   const jobId = req.body.params.id;
-  // console.log("test", req);
   let queryString;
   console.log(req.body.params)
 
@@ -61,13 +59,13 @@ router.put('/', (req, res) => {
     WHERE id=${jobId}
     `
   } else if (req.body.params.markComplete) {
-    console.log("here")
+    console.log("markComplete - here")
     queryString = `
     UPDATE jobs SET jobber_confirm=true
     WHERE id=${jobId}
     `
   } else if (req.body.params.confirmComplete) {
-    console.log("here")
+    console.log("confirmComplete - here")
     queryString = `
     UPDATE jobs SET user_confirm=true
     WHERE id=${jobId}
@@ -79,7 +77,6 @@ router.put('/', (req, res) => {
     `
   }
   console.log("QS", queryString)
-  // const id = [req.body[0]]
   pool.query(queryString, (error, results) => {
     // if (error) {
     //   res.json({
