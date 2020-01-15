@@ -6,10 +6,8 @@ const router = express.Router();
 const { pool } = require('../config');
 
 function getDirections(origin, destination) {
-  console.log('from getdir', origin.origin.latitude, destination)
   return axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${origin.origin.longitude},${origin.origin.latitude}&destinations=${destination},+Canada&key=${GMAPS_KEY}`)
     .then((response) => {
-      console.log(response.data.rows[0].elements[0].distance.text)
       return {
         distance: response.data.rows[0].elements[0].distance.text,
         time: response.data.rows[0].elements[0].duration.text
@@ -34,14 +32,12 @@ const setDistanceTime = async function (jobs, jobberCoords) {
 }
 
 router.post('/', (req, res) => {
-  console.log(req.body)
   const queryString = `
   SELECT * FROM jobs 
   WHERE is_deleted=false 
   AND jobber_id IS NULL`
   pool.query(queryString, (error, results) => {
     if (error) throw error
-    console.log('query results rows', results.rows)
     if (results.rows.length > 0) {
       setDistanceTime(results.rows, req.body)
     }

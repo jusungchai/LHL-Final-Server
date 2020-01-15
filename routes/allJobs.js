@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
     const queryString = `
     SELECT jobs.*, users.name FROM jobs 
     JOIN users ON jobs.user_id = users.id
-    WHERE jobs.jobber_id IS NULL AND jobs.is_deleted=false`;
+    WHERE jobs.jobber_id IS NULL AND jobs.is_deleted=false ORDER BY jobs.id DESC`;
     pool.query(queryString, (error, results) => {
       if (error) {
         throw error
