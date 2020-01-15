@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
       if (results.rows.length > 0) {
         res.json(results.rows)
       } else {
-        console.log(results)
+        res.json(results.rows)
       }
     })
   } else {
@@ -43,8 +43,10 @@ router.get('/', (req, res) => {
       }
       if (results.rows.length > 0) {
         res.json(results.rows)
-        
       } 
+      else {
+        res.json(results.rows)
+      }
     })
   }
 })
